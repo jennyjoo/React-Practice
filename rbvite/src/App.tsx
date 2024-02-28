@@ -3,10 +3,12 @@ import './App.css';
 import { Home } from './components/Home';
 import { Login } from './components/Login';
 import { List } from './components/List';
+import { Nav } from './components/Nav';
 
 function App() {
   return (
     <>
+      <Nav />
       <div className='container flex justify-center items-center h-screen'>
         <Routes>
           <Route path='/' element={<Home />} />
