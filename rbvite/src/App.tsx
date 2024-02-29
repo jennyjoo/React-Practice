@@ -20,7 +20,6 @@ function App() {
 
   return (
     <>
-      {!session.user ? navigate('/') : null}
       <Nav />
       <div className='container flex justify-center items-center h-screen'>
         <Routes>
