@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSession } from '../contexts/session.context';
 import { useFetch } from '../hooks/fetch';
 import { Album } from './Album';
+import { useNavigate } from 'react-router-dom';
 
 type Album = {
   userId: number;
@@ -26,6 +27,16 @@ export const Albums = () => {
   });
 
   const [selected, setSelected] = useState<Selected>({ selectedId: null });
+  const navigate = useNavigate();
+
+  const goTo = (id: number | null) => {
+    if (id) {
+      setSelected({ selectedId: id });
+      console.log('lllllll', id);
+      navigate(`/albums/${id}`);
+      return;
+    }
+  };
 
   return (
     <>
@@ -37,13 +48,18 @@ export const Albums = () => {
               key={item.id}
               onClick={() => setSelected({ selectedId: item.id })}
             >
-              <Album albumId={item.id} album={item} selected={selected} />
+              <Album
+                albumId={item.id}
+                album={item}
+                selected={selected}
+                toggleSelected={() => {}}
+              />
             </li>
           ))}
         </ul>
       ) : null}
       <button
-        onClick={() => {}}
+        onClick={() => goTo(selected.selectedId)}
         className='bg-blue-500 rounded text-zinc-50 pl-5 pr-5 hover:bg-blue-400'
       >
         Details

@@ -26,7 +26,7 @@ export const Nav = () => {
         </NavLink>
         {session.user && (
           <NavLink
-            to='/list'
+            to='/albums'
             className={({ isActive, isPending, isTransitioning }) =>
               clsx({
                 'text-blue-900 hover:underline': isActive,

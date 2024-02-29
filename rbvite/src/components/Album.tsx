@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useToggle } from '../hooks/toggle';
 import { useFetch } from '../hooks/fetch';
 import clsx from 'clsx';
 
@@ -32,14 +31,16 @@ export const Album = ({
   album,
   albumId,
   selected,
+  toggleSelected,
 }: {
   album?: Album;
   albumId?: number;
   selected: Selected;
+  toggleSelected: () => void;
 }) => {
   const [albumData, setAlbumData] = useState<Album | null>(null);
-  const [isOpen, toggle] = useToggle();
-  console.log('****', selected, albumId);
+  //   const [isOpen, toggle] = useToggle();
+  //   console.log('****', selected, albumId);
 
   const url = `${BASE_URL}${albumId}`;
   const { data, isLoading } = useFetch<Album>({ url });
@@ -55,9 +56,9 @@ export const Album = ({
     }
   }, []);
 
-  useEffect(() => {
-    if (selected.selectedId === albumData?.id) toggle();
-  }, [selected]);
+  //   useEffect(() => {
+  //     if (selected.selectedId === albumData?.id) toggle();
+  //   }, [selected]);
 
   return (
     <>

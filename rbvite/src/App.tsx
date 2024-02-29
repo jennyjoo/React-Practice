@@ -7,6 +7,7 @@ import { useSession } from './contexts/session.context';
 
 import { useEffect } from 'react';
 import { Albums } from './components/Albums';
+import { AlbumDetail } from './components/AlbumDetail';
 
 function App() {
   const { session } = useSession();
@@ -24,7 +25,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/list' element={<Albums />} />
+        <Route path='/albums' element={<Albums />} />
+        <Route path='/albums/:id' element={<AlbumDetail />} />
       </Routes>
     </>
   );
