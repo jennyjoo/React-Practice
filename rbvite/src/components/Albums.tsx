@@ -33,7 +33,7 @@ export const Albums = () => {
     if (id) {
       setSelected({ selectedId: id });
       console.log('lllllll', id);
-      navigate(`/albums/${id}`);
+      navigate(`/albums/${id}   `);
       return;
     }
   };
