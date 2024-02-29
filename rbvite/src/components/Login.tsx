@@ -39,7 +39,7 @@ export const Login = () => {
           type='string'
           ref={nameRef}
           className='border border-blue-500 m-1 p-1 rounded'
-          placeholder='number'
+          placeholder='name'
         />
         <button
           type='submit'

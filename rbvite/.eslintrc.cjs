@@ -1,7 +1,15 @@
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
-  extends: ['plugin:react/recommended', 'eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:react-hooks/recommended', 'plugin:react/jsx-runtime', 'plugin:jsx-a11y/recommended', 'plugin:storybook/recommended'],
+  extends: [
+    'plugin:react/recommended',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:react/jsx-runtime',
+    'plugin:jsx-a11y/recommended',
+    'plugin:storybook/recommended',
+  ],
   ignorePatterns: ['dist', '.eslintrc.cjs', 'jsx-a11y'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
@@ -12,6 +20,7 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    'react-hooks/exhaustive-deps': 'off',
   },
   settings: {
     react: { version: 'detect' }, // for react version warnning

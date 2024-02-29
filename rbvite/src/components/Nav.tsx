@@ -11,7 +11,7 @@ export const Nav = () => {
   // };
   return (
     <>
-      <nav className='flex justify-between'>
+      <nav className='flex justify-between mb-5'>
         <NavLink
           to='/'
           className={({ isActive, isPending, isTransitioning }) =>

@@ -14,7 +14,7 @@ export const useFetch = <T>({
   enable = true,
 }: FetchParam) => {
   const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState<T | null>(null);
+  const [data, setData] = useState<T | undefined>(undefined);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -24,9 +24,10 @@ export const useFetch = <T>({
     (async function () {
       try {
         const res = await fetch(url, option);
-        const data = (await res.json()) as T;
+        const dat = (await res.json()) as T;
 
-        setData(data);
+        setData(dat);
+        console.log(dat);
       } catch (err) {
         console.error(err);
       } finally {
@@ -35,7 +36,6 @@ export const useFetch = <T>({
     })();
 
     return () => controller.abort();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependency);
 
   return { data, isLoading };
