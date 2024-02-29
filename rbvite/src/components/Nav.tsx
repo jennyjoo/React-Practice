@@ -1,14 +1,14 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import clsx from 'clsx';
 import { useSession } from '../contexts/session.context';
 
 export const Nav = () => {
   const { session, logout } = useSession();
-  const navigate = useNavigate();
-  const logoutHandler = () => {
-    logout();
-    navigate('/');
-  };
+  // const navigate = useNavigate();
+  // const logoutHandler = () => {
+  //   logout();
+  //   navigate('/');
+  // };
   return (
     <>
       <nav className='flex justify-between'>
@@ -38,7 +38,7 @@ export const Nav = () => {
             List
           </NavLink>
         )}
-        <button onClick={logoutHandler} className='text-blue-800'>
+        <button onClick={logout} className='text-blue-800'>
           {session.user && `logout`}
         </button>
       </nav>
