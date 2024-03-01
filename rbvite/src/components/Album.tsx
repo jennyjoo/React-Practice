@@ -10,8 +10,12 @@ export const Album = ({
   album?: Album;
   albumId?: number;
 }) => {
+  //===== states =====
   const [albumData, setAlbumData] = useState<Album | null>(null);
 
+  //===== data =====
+
+  //data
   const url = `${BASE_URL}${albumId}`;
   const { data, isLoading } = useFetch<Album>({ url, enable: !album });
 

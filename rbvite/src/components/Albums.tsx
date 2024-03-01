@@ -14,21 +14,31 @@ type Album = {
 const BASE_URL = 'https://jsonplaceholder.typicode.com';
 
 export const Albums = () => {
+  //===== data =====
+
+  //loginUser
   const {
     session: { user: loginUser },
   } = useSession();
 
+  //albums
   const { data: albums, isLoading } = useFetch<Album[]>({
     url: `${BASE_URL}/albums?userId=${loginUser?.id}`,
     dependency: [loginUser],
     enable: !(loginUser === null),
   });
 
+  //id
   const { id } = useParams();
+
+  //===== states =====
+  //selected
   const [selected, setSelected] = useState<number | null>(null);
 
+  //===== hooks =====
   const navigate = useNavigate();
 
+  //===== handlers =====
   const goTo = (id: number | null) => {
     if (id) {
       navigate(`/albums/detail/${id}`);
