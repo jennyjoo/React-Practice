@@ -1,23 +1,29 @@
 import { Routes, Route } from 'react-router-dom';
-import './App.css';
-import { Home } from './components/Home';
-import { Login } from './components/Login';
-import { Nav } from './components/Nav';
 import { SessionProvider } from './contexts/session.context';
 
+import { Home } from './components/Home';
+import { Nav } from './components/Nav';
 import { Albums } from './components/Albums';
 import { AlbumDetail } from './components/AlbumDetail';
+import './App.css';
+import { RequireAuth } from './components/RequireAuth';
 
 function App() {
   return (
     <>
-      <SessionProvider ref={null}>
+      <SessionProvider>
         <Nav />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/albums' element={<Albums />} />
-          <Route path='/albums/:albumId' element={<AlbumDetail />} />
+          <Route
+            path=':id'
+            element={
+              <RequireAuth>
+                <Albums />
+              </RequireAuth>
+            }
+          />
+          <Route path='/albums/detail/:albumId' element={<AlbumDetail />} />
         </Routes>
       </SessionProvider>
     </>

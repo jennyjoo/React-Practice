@@ -33,22 +33,23 @@ export const Login = () => {
     e.preventDefault();
     const id = Number(idRef.current?.value);
 
+    if (!loginValidation(id)) {
+      return;
+    }
     try {
       const res = await fetch(`${BASE_URL}/users?id=${id}`);
       const data = await res.json();
 
-      const name = data[0].name;
+      const name = await data[0].name;
       console.log('data', data);
       console.log('name', name);
 
       if (!name) {
         alert('No such user');
       }
-      if (name && loginValidation(id)) {
-        if (login(id, name)) navigate('/');
-      } else {
-        alert('Login Failed');
-      }
+
+      if (login(id, name)) navigate('/list');
+      else alert('Login Failed');
     } catch (err) {
       console.error(err);
     }
@@ -56,13 +57,19 @@ export const Login = () => {
 
   return (
     <>
+      <h1 className='text-xl mb-5 text-hana font-extrabold'>Sign In</h1>
       <form onSubmit={loginHandler}>
-        <input
-          type='number'
-          ref={idRef}
-          className='border border-hana m-1 p-1 rounded'
-          placeholder='id'
-        />
+        <label htmlFor='login'>
+          ID
+          <input
+            id='login'
+            type='number'
+            ref={idRef}
+            className='border border-hana m-1 ml-5 pl-2 p-1 rounded'
+            placeholder='Please enter a number'
+            min='1'
+          />
+        </label>
 
         <button
           type='submit'

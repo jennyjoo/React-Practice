@@ -1,8 +1,9 @@
-import { useState } from 'react';
 import { useSession } from '../contexts/session.context';
 import { useFetch } from '../hooks/fetch';
 import { Album } from './Album';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import clsx from 'clsx';
 
 type Album = {
   userId: number;
@@ -10,11 +11,8 @@ type Album = {
   title: string;
 };
 
-type Selected = {
-  selectedId: number | null;
-};
-
 const BASE_URL = 'https://jsonplaceholder.typicode.com';
+
 export const Albums = () => {
   const {
     session: { user: loginUser },
@@ -26,40 +24,68 @@ export const Albums = () => {
     enable: !(loginUser === null),
   });
 
-  const [selected, setSelected] = useState<Selected>({ selectedId: null });
+  const { id } = useParams();
+  const [selected, setSelected] = useState<number | null>(null);
+
   const navigate = useNavigate();
 
   const goTo = (id: number | null) => {
     if (id) {
-      setSelected({ selectedId: id });
-      console.log('lllllll', id);
-      navigate(`/albums/${id}   `);
+      navigate(`/albums/detail/${id}`);
+      return;
+    } else {
+      alert('Select an album');
       return;
     }
   };
 
+  const selectAlbum = (id: number) => {
+    if (selected === id) {
+      setSelected(null);
+    } else {
+      setSelected(id);
+    }
+  };
+
+  useEffect(() => {
+    if (id != 'none') {
+      setSelected(Number(id));
+    }
+  }, []);
+
   return (
     <>
       <div className='container max-w-2xl mx-auto'>
-        <h1 className='font-semibold text-xl text-start p-3 text-zinc-50 bg-hana rounded-t-2xl'>
-          Album List
+        <h1 className='font-semibold text-xl text-start pl-7 p-3 text-zinc-50 bg-hana rounded-t-2xl'>
+          <strong>{loginUser ? `${loginUser?.name}'s  ` : `...`}</strong> Album
+          List
         </h1>
         {loginUser && isLoading ? <h1>isLoading...</h1> : null}
         {albums ? (
-          <ul className='text-start border-b-2 border-b-hana'>
-            {albums?.map((item) => (
+          <ol className='text-start border-b-2 border-b-hana' start={1}>
+            {albums?.map((item, index) => (
               <li
                 key={item.id}
-                onClick={() => setSelected({ selectedId: item.id })}
-                className='m-7'
+                className={clsx({
+                  'p-3': true,
+                  'border-b-2 border-zinc-100': item.id != albums?.length,
+                })}
               >
-                <Album albumId={item.id} album={item} selected={selected} />
+                <span className='mr-7'>{index + 1} </span>
+                <button
+                  onClick={() => selectAlbum(item.id)}
+                  className={clsx({
+                    'text-hanared font-bold underline': selected === item.id,
+                  })}
+                >
+                  <Album albumId={item.id} album={item} />
+                </button>
               </li>
             ))}
-          </ul>
+          </ol>
         ) : null}
         <button
-          onClick={() => goTo(selected.selectedId)}
+          onClick={() => goTo(selected)}
           className='bg-hana rounded-2xl font-semibold text-zinc-50 p-2 mt-4 hover:border hover:border-hana hover:bg-transparent hover:text-hana w-1/4 '
         >
           Details

@@ -1,6 +1,6 @@
 import { useSession } from '../contexts/session.context';
-import { Albums } from './Albums';
 import { Login } from './Login';
+import { Albums } from './Albums';
 export const Home = () => {
   const { session } = useSession();
   console.log(JSON.stringify(session));

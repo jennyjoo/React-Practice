@@ -5,12 +5,11 @@ import {
   useCallback,
   useEffect,
 } from 'react';
-import { ReactNode, RefObject } from 'react';
+import { ReactNode } from 'react';
 import { LoginUser, sessionContextProp, Session } from './session';
 
 type providerProps = {
   children: ReactNode;
-  ref: RefObject<unknown> | null;
 };
 
 type Action =
@@ -78,12 +77,8 @@ const reducer = (session: Session, { type, payload }: Action) => {
   return newer;
 };
 
-export const SessionProvider = ({ children, ref }: providerProps) => {
+export const SessionProvider = ({ children }: providerProps) => {
   const [session, dispatch] = useReducer(reducer, DefaultSession);
-
-  if (ref?.current) {
-    console.log('hi');
-  }
 
   const login = useCallback((id: number, name: string) => {
     console.log('name', name);
