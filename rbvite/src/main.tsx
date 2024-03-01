@@ -7,10 +7,8 @@ import { SessionProvider } from './contexts/session.context.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <SessionProvider ref={null}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </SessionProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
