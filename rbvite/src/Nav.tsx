@@ -1,15 +1,10 @@
 import { NavLink } from 'react-router-dom';
-// import clsx from 'clsx';
-import { useSession } from '../contexts/session.context';
+import { useSession } from './contexts/session.context';
 import { useNavigate } from 'react-router-dom';
 
 export const Nav = () => {
   const { session, logout } = useSession();
   const navigate = useNavigate();
-  // const logoutHandler = () => {
-  //   logout();
-  //   navigate('/');
-  // };
 
   const logoutHandler = () => {
     if (logout()) {
@@ -22,20 +17,7 @@ export const Nav = () => {
         <NavLink to='/' replace className='text-hana font-extrabold'>
           DigitalHana路
         </NavLink>
-        {/* {session.user && (
-          <NavLink
-            to='/albums'
-            className={({ isActive, isPending, isTransitioning }) =>
-              clsx({
-                'font-bold underline': isActive,
-                'hover:underline': !isActive,
-                'border border-red-500': isPending || isTransitioning,
-              })
-            }
-          >
-            List
-          </NavLink>
-        )} */}
+
         <span className='flex flex-row min-w-72'>
           <span className='basis-2/3 underline'>
             {session.user?.id} {session.user?.name}

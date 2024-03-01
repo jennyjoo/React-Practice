@@ -8,9 +8,12 @@ export const Login = () => {
   const { login } = useSession();
   const navigate = useNavigate();
 
+  //===== ref =====
   const idRef = useRef<HTMLInputElement | null>(null);
 
+  //===== function =====
   const loginValidation = (id: number) => {
+    // 과도한 검증인것 같아 제외, input type이 number
     // if (typeof id != 'number') {
     //   alert('invalid type! ID should be number');
     //   return false;
@@ -29,6 +32,7 @@ export const Login = () => {
     return true;
   };
 
+  //===== handlers =====
   const loginHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const id = Number(idRef.current?.value);
@@ -41,8 +45,6 @@ export const Login = () => {
       const data = await res.json();
 
       const name = await data[0].name;
-      console.log('data', data);
-      console.log('name', name);
 
       if (!name) {
         alert('No such user');

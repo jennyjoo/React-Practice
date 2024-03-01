@@ -19,8 +19,17 @@ type Album = {
   title: string;
 };
 
-const BASE_URL = 'https://jsonplaceholder.typicode.com';
-
 type AlbumHandler = {
   select: (id: number) => void;
 };
+
+type providerProps = {
+  children: ReactNode;
+};
+
+type Action =
+  | {
+      type: 'login' | 'logout';
+      payload: LoginUser | null;
+    }
+  | { type: 'set'; payload: Session };

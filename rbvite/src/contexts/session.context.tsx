@@ -5,25 +5,28 @@ import {
   useCallback,
   useEffect,
 } from 'react';
-import { ReactNode } from 'react';
-import { LoginUser, sessionContextProp, Session } from './session';
-
-type providerProps = {
-  children: ReactNode;
-};
-
-type Action =
-  | {
-      type: 'login' | 'logout';
-      payload: LoginUser | null;
-    }
-  | { type: 'set'; payload: Session };
+import { getStorage, setStorage } from '../components/util/setLocalStorage';
 
 enum ACTION {
   LOG_IN = 'login',
   LOG_OUT = 'logout',
   SET = 'set',
 }
+
+type LoginUser = {
+  id: number;
+  name: string;
+};
+
+type Session = {
+  user: LoginUser | null;
+};
+
+type sessionContextProp = {
+  session: Session;
+  login: (id: number, name: string) => boolean;
+  logout: () => boolean;
+};
 
 const SessionContext = createContext<sessionContextProp>({
   session: { user: null },
@@ -39,20 +42,6 @@ const SKEY = 'session';
 const DefaultSession: Session = {
   user: null,
 };
-function getStorage() {
-  const storedData = localStorage.getItem(SKEY);
-  if (storedData) {
-    return JSON.parse(storedData) as Session;
-  }
-
-  setStorage(DefaultSession);
-
-  return DefaultSession;
-}
-
-function setStorage(session: Session) {
-  localStorage.setItem(SKEY, JSON.stringify(session));
-}
 
 const reducer = (session: Session, { type, payload }: Action) => {
   let newer;
@@ -73,7 +62,7 @@ const reducer = (session: Session, { type, payload }: Action) => {
       return session;
   }
 
-  setStorage(newer);
+  setStorage(SKEY, newer);
   return newer;
 };
 
@@ -93,7 +82,7 @@ export const SessionProvider = ({ children }: providerProps) => {
   }, []);
 
   useEffect(() => {
-    dispatch({ type: ACTION.SET, payload: getStorage() });
+    dispatch({ type: ACTION.SET, payload: getStorage(SKEY, DefaultSession) });
   }, []);
 
   return (

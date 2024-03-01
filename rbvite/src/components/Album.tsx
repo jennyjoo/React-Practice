@@ -1,12 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useFetch } from '../hooks/fetch';
 
-type Album = {
-  userId: number;
-  id: number;
-  title: string;
-};
-
 const BASE_URL = 'https://jsonplaceholder.typicode.com/photos?albumId=';
 
 export const Album = ({
@@ -19,7 +13,7 @@ export const Album = ({
   const [albumData, setAlbumData] = useState<Album | null>(null);
 
   const url = `${BASE_URL}${albumId}`;
-  const { data, isLoading } = useFetch<Album>({ url });
+  const { data, isLoading } = useFetch<Album>({ url, enable: !album });
 
   useEffect(() => {
     if (data) {
@@ -30,14 +24,11 @@ export const Album = ({
       setAlbumData(album);
       return;
     }
-  }, []);
+  }, [isLoading]);
 
   return (
     <>
-      <div>
-        {isLoading && `Loading...`}
-        {albumData && `${albumData.title}`}
-      </div>
+      <div>{albumData ? `${albumData.title}` : `isLoading`}</div>
     </>
   );
 };
