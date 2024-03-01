@@ -27,17 +27,18 @@ enum ACTION {
 }
 
 const SessionContext = createContext<sessionContextProp>({
-  session: { user: null, album: [] },
+  session: { user: null },
   login: () => {
     return false;
   },
-  logout: () => {},
+  logout: () => {
+    return false;
+  },
 });
 
 const SKEY = 'session';
 const DefaultSession: Session = {
   user: null,
-  album: [],
 };
 function getStorage() {
   const storedData = localStorage.getItem(SKEY);
@@ -85,13 +86,15 @@ export const SessionProvider = ({ children, ref }: providerProps) => {
   }
 
   const login = useCallback((id: number, name: string) => {
-    console.log('되나', id, name);
+    console.log('name', name);
     dispatch({ type: ACTION.LOG_IN, payload: { id, name } });
+
     return true;
   }, []);
 
   const logout = useCallback(() => {
     dispatch({ type: ACTION.LOG_OUT, payload: null });
+    return true;
   }, []);
 
   useEffect(() => {

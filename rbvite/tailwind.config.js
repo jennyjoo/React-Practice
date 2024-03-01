@@ -2,7 +2,12 @@
 export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        hana: '#008485',
+        hanared: '#D60035',
+      },
+    },
   },
   plugins: [],
 };

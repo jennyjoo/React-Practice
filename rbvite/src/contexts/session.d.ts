@@ -13,13 +13,12 @@ type Album = {
 
 type Session = {
   user: LoginUser | null;
-  album: Album[];
 };
 
 type sessionContextProp = {
   session: Session;
   login: (id: number, name: string) => boolean;
-  logout: () => void;
+  logout: () => boolean;
 };
 
 type providerProps = {

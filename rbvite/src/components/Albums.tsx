@@ -40,30 +40,31 @@ export const Albums = () => {
 
   return (
     <>
-      {loginUser && isLoading ? <h1>isLoading...</h1> : null}
-      {albums ? (
-        <ul>
-          {albums?.map((item) => (
-            <li
-              key={item.id}
-              onClick={() => setSelected({ selectedId: item.id })}
-            >
-              <Album
-                albumId={item.id}
-                album={item}
-                selected={selected}
-                toggleSelected={() => {}}
-              />
-            </li>
-          ))}
-        </ul>
-      ) : null}
-      <button
-        onClick={() => goTo(selected.selectedId)}
-        className='bg-blue-500 rounded text-zinc-50 pl-5 pr-5 hover:bg-blue-400'
-      >
-        Details
-      </button>
+      <div className='container max-w-2xl mx-auto'>
+        <h1 className='font-semibold text-xl text-start p-3 text-zinc-50 bg-hana rounded-t-2xl'>
+          Album List
+        </h1>
+        {loginUser && isLoading ? <h1>isLoading...</h1> : null}
+        {albums ? (
+          <ul className='text-start border-b-2 border-b-hana'>
+            {albums?.map((item) => (
+              <li
+                key={item.id}
+                onClick={() => setSelected({ selectedId: item.id })}
+                className='m-7'
+              >
+                <Album albumId={item.id} album={item} selected={selected} />
+              </li>
+            ))}
+          </ul>
+        ) : null}
+        <button
+          onClick={() => goTo(selected.selectedId)}
+          className='bg-hana rounded-2xl font-semibold text-zinc-50 p-2 mt-4 hover:border hover:border-hana hover:bg-transparent hover:text-hana w-1/4 '
+        >
+          Details
+        </button>
+      </div>
     </>
   );
 };

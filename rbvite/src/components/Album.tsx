@@ -31,12 +31,10 @@ export const Album = ({
   album,
   albumId,
   selected,
-  toggleSelected,
 }: {
   album?: Album;
   albumId?: number;
   selected: Selected;
-  toggleSelected: () => void;
 }) => {
   const [albumData, setAlbumData] = useState<Album | null>(null);
   //   const [isOpen, toggle] = useToggle();
@@ -66,7 +64,7 @@ export const Album = ({
       {albumData && (
         <span
           className={clsx({
-            'border border-rose-500': selected.selectedId === albumId,
+            'text-hanared font-extrabold': selected.selectedId === albumId,
           })}
         >
           {albumData.id} {albumData.title}

@@ -1,27 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useFetch } from '../hooks/fetch';
 
-type AlbumDetail = {
-  albumId: number;
-  id: number;
-  url: string;
-  thumbnailUrl: string;
-};
-
-type Photo = {
-  albumId: number;
-  id: number;
-  title: string;
-  url: string;
-  thumbnailUrl: string;
-};
-
-type Album = {
-  userId: number;
-  id: number;
-  title: string;
-};
-
 const BASE_URL = `https://jsonplaceholder.typicode.com`;
 
 export const AlbumDetail = () => {
@@ -46,10 +25,10 @@ export const AlbumDetail = () => {
         ) : (
           `is Loading`
         )}
-        <ul className='flex flex-wrap'>
+        <ul className='flex flex-wrap mt-10'>
           {photos?.map((item) => (
             <li className='w-1/4' key={item.id}>
-              <img className='m-2' src={item.thumbnailUrl} />
+              <img className='p-2' src={item.thumbnailUrl} alt='' />
             </li>
           ))}
         </ul>
