@@ -18,7 +18,7 @@ type Session = {
 
 type sessionContextProp = {
   session: Session;
-  login: (id: number, name: string) => void;
+  login: (id: number, name: string) => boolean;
   logout: () => void;
 };
 

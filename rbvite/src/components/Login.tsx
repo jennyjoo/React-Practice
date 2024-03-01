@@ -1,23 +1,12 @@
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useSession } from '../contexts/session.context';
-import { useErr } from '../hooks/err';
-
+import { useNavigate } from 'react-router-dom';
 export const Login = () => {
   const { login } = useSession();
+  const navigate = useNavigate();
 
   const idRef = useRef<HTMLInputElement | null>(null);
   const nameRef = useRef<HTMLInputElement | null>(null);
-
-  const { isErr, errPersist } = useErr(false);
-
-  const loginValidation = (id: number) => {
-    if (id < 1 || id > 99) {
-      return `아이디는 1 이상 99 이하여야 합니다`;
-    }
-
-    return;
-  };
-
   const loginHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const id = Number(idRef.current?.value);
@@ -25,17 +14,18 @@ export const Login = () => {
 
     if (!id) {
       idRef.current?.focus();
-      errPersist();
       return;
     }
     if (!nickname) {
       nameRef.current?.focus();
-      errPersist();
       return;
     }
 
     console.log('호출');
-    login(id, nickname ?? '');
+    if (login(id, nickname ?? '')) {
+      alert('로그인 성공');
+      navigate('/album');
+    }
   };
 
   return (
@@ -60,7 +50,6 @@ export const Login = () => {
           Log-in
         </button>
       </form>
-      {isErr && `안됨`}
     </>
   );
 };

@@ -28,7 +28,9 @@ enum ACTION {
 
 const SessionContext = createContext<sessionContextProp>({
   session: { user: null, album: [] },
-  login: () => {},
+  login: () => {
+    return false;
+  },
   logout: () => {},
 });
 
@@ -85,6 +87,7 @@ export const SessionProvider = ({ children, ref }: providerProps) => {
   const login = useCallback((id: number, name: string) => {
     console.log('되나', id, name);
     dispatch({ type: ACTION.LOG_IN, payload: { id, name } });
+    return true;
   }, []);
 
   const logout = useCallback(() => {

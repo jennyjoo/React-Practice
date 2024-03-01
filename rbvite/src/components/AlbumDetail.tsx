@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import { useFetch } from '../hooks/fetch';
-import { useEffect, useState } from 'react';
 
 type AlbumDetail = {
   albumId: number;
@@ -17,25 +16,44 @@ type Photo = {
   thumbnailUrl: string;
 };
 
+type Album = {
+  userId: number;
+  id: number;
+  title: string;
+};
+
 const BASE_URL = `https://jsonplaceholder.typicode.com`;
+
 export const AlbumDetail = () => {
-  const { id } = useParams();
+  const { albumId } = useParams();
   const { data: photos, isLoading } = useFetch<Photo[] | null>({
-    url: `https://jsonplaceholder.typicode.com/photos?albumId=${id}`,
+    url: `${BASE_URL}/photos?albumId=${albumId}`,
+    enable: !!albumId,
   });
 
-  const [dat, setDat] = useState<Photo[] | null>(null);
+  const { data: albumData } = useFetch<Album[] | null>({
+    url: `${BASE_URL}/albums?id=${albumId}`,
+    enable: !!albumId,
+  });
 
+  console.log(albumData);
   return (
     <>
-      <ul>
-        {photos?.map((item) => (
-          <li key={item.id}>
-            {item.thumbnailUrl}
-            <img src={item.thumbnailUrl} />
-          </li>
-        ))}
-      </ul>
+      <div className='container max-w-2xl mx-auto'>
+        {isLoading && <h1>is Loading...</h1>}
+        {albumData ? (
+          <h1 className='font-extrabold'>{albumData[0].title}</h1>
+        ) : (
+          `is Loading`
+        )}
+        <ul className='flex flex-wrap'>
+          {photos?.map((item) => (
+            <li className='w-1/4' key={item.id}>
+              <img className='m-2' src={item.thumbnailUrl} />
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 };

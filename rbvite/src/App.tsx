@@ -11,9 +11,6 @@ import { Albums } from './components/Albums';
 import { AlbumDetail } from './components/AlbumDetail';
 
 function App() {
-  const { session } = useSession();
-  const navigate = useNavigate();
-
   return (
     <>
       <SessionProvider ref={null}>
@@ -22,7 +19,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/albums' element={<Albums />} />
-          <Route path='/albums/:id' element={<AlbumDetail />} />
+          <Route path='/albums/:albumId' element={<AlbumDetail />} />
         </Routes>
       </SessionProvider>
     </>
