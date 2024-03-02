@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFetch } from '../hooks/fetch';
+import { useCallback } from 'react';
 // import { UnknownError } from './ui/UnknownError';
 
 const BASE_URL = 'https://jsonplaceholder.typicode.com';
@@ -27,19 +28,22 @@ export const AlbumDetail = () => {
   const navigate = useNavigate();
 
   //===== handlers =====
-  const goBackHandler = () => {
+  const goBackHandler = useCallback(() => {
     navigate(`/${albumId}`);
-  };
+  }, []);
 
   return (
     <>
       {/* {errorMsg && isLoading ? (
         <UnknownError />
       ) : ( */}
+
       <div className='container max-w-2xl mx-auto'>
         {isLoading && <h1>is Loading...</h1>}
         {albumData ? (
-          <h1 className='font-extrabold'>{albumData[0].title}</h1>
+          <h1 className='font-semibold text-xl text-start pl-7 p-3 text-zinc-50 bg-hana rounded-t-2xl'>
+            {albumData[0].id} {albumData[0].title}
+          </h1>
         ) : (
           `is Loading`
         )}

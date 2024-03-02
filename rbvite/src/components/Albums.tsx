@@ -2,7 +2,7 @@ import { useSession } from '../contexts/session.context';
 import { useFetch } from '../hooks/fetch';
 import { Album } from './Album';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import clsx from 'clsx';
 
 type Album = {
@@ -39,7 +39,7 @@ export const Albums = () => {
   const navigate = useNavigate();
 
   //===== handlers =====
-  const goTo = (id: number | null) => {
+  const goTo = useCallback((id: number | null) => {
     if (id) {
       navigate(`/albums/detail/${id}`);
       return;
@@ -47,18 +47,17 @@ export const Albums = () => {
       alert('Select an album');
       return;
     }
-  };
+  }, []);
 
-  const selectAlbum = (id: number) => {
+  const selectAlbum = useCallback((id: number) => {
     if (selected === id) {
       setSelected(null);
     } else {
       setSelected(id);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    console.log('응~리렌더');
     if (id != 'none') {
       setSelected(Number(id));
     }
@@ -78,7 +77,7 @@ export const Albums = () => {
               <li
                 key={item.id}
                 className={clsx({
-                  'p-3': true,
+                  'p-3 hover:bg-slate-100': true,
                   'border-b-2 border-zinc-100': item.id != albums?.length,
                 })}
               >
@@ -86,7 +85,7 @@ export const Albums = () => {
                 <button
                   onClick={() => selectAlbum(item.id)}
                   className={clsx({
-                    'text-hanared font-bold underline': selected === item.id,
+                    'font-extrabold': selected === item.id,
                   })}
                 >
                   <Album albumId={item.id} album={item} />

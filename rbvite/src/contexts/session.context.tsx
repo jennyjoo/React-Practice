@@ -70,7 +70,6 @@ export const SessionProvider = ({ children }: providerProps) => {
   const [session, dispatch] = useReducer(reducer, DefaultSession);
 
   const login = useCallback((id: number, name: string) => {
-    console.log('name', name);
     dispatch({ type: ACTION.LOG_IN, payload: { id, name } });
 
     return true;
