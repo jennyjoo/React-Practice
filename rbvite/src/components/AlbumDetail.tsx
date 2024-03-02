@@ -30,7 +30,7 @@ export const AlbumDetail = () => {
   //===== handlers =====
   const goBackHandler = useCallback(() => {
     navigate(`/${albumId}`);
-  }, []);
+  }, [albumId]);
 
   return (
     <>

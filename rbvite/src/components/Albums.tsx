@@ -39,23 +39,26 @@ export const Albums = () => {
   const navigate = useNavigate();
 
   //===== handlers =====
-  const goTo = useCallback((id: number | null) => {
-    if (id) {
-      navigate(`/albums/detail/${id}`);
-      return;
-    } else {
-      alert('Select an album');
-      return;
-    }
-  }, []);
+  const goTo = useCallback(
+    (id: number | null) => {
+      if (id) {
+        navigate(`/albums/detail/${id}`);
+        return;
+      } else {
+        alert('Select an album');
+        return;
+      }
+    },
+    [navigate]
+  );
 
-  const selectAlbum = useCallback((id: number) => {
+  const selectAlbum = (id: number) => {
     if (selected === id) {
       setSelected(null);
     } else {
       setSelected(id);
     }
-  }, []);
+  };
 
   useEffect(() => {
     if (id != 'none') {
