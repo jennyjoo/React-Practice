@@ -15,6 +15,7 @@ export const useFetch = <T>({
 }: FetchParam) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<T | undefined>(undefined);
+  const [errorMsg, setErrMsg] = useState<string | null>(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -29,7 +30,9 @@ export const useFetch = <T>({
         setData(dat);
         console.log('dat', dat);
       } catch (err) {
-        console.error(err);
+        if (err instanceof Error) {
+          setErrMsg(JSON.stringify(err));
+        }
       } finally {
         setLoading(false);
       }
@@ -38,5 +41,5 @@ export const useFetch = <T>({
     return () => controller.abort();
   }, dependency);
 
-  return { data, isLoading };
+  return { data, isLoading, errorMsg };
 };

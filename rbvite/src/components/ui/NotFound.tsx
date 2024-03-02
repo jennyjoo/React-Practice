@@ -11,7 +11,9 @@ export const NotFound = () => {
 
   return (
     <>
-      <h1 className='font-extrabold text-5xl'>{location.pathname} NotFound</h1>
+      <h1 className='font-extrabold text-5xl mb-10'>
+        {location.pathname} NotFound
+      </h1>
       <p>sorry, something went wrong 😢</p>
     </>
   );

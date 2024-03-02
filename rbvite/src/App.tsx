@@ -7,6 +7,7 @@ import { Albums } from './components/Albums';
 import { AlbumDetail } from './components/AlbumDetail';
 import './App.css';
 import { RequireAuth } from './components/RequireAuth';
+import { NotFound } from './components/ui/NotFound';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             }
           />
           <Route path='/albums/detail/:albumId' element={<AlbumDetail />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </SessionProvider>
     </>

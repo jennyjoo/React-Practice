@@ -73,7 +73,7 @@ export const Albums = () => {
         </h1>
         {loginUser && isLoading ? <h1>isLoading...</h1> : null}
         {albums ? (
-          <ol className='text-start border-b-2 border-b-hana' start={1}>
+          <ul className='text-start border-b-2 border-b-hana'>
             {albums?.map((item, index) => (
               <li
                 key={item.id}
@@ -93,7 +93,7 @@ export const Albums = () => {
                 </button>
               </li>
             ))}
-          </ol>
+          </ul>
         ) : null}
         <button
           onClick={() => goTo(selected)}
