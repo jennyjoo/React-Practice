@@ -58,6 +58,7 @@ export const Albums = () => {
   };
 
   useEffect(() => {
+    console.log('응~리렌더');
     if (id != 'none') {
       setSelected(Number(id));
     }

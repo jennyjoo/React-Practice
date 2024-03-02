@@ -27,6 +27,7 @@ export const useFetch = <T>({
         const dat = (await res.json()) as T;
 
         setData(dat);
+        console.log('dat', dat);
       } catch (err) {
         console.error(err);
       } finally {
