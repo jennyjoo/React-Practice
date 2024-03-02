@@ -17,7 +17,7 @@ export const Album = ({
 
   //data
   const url = `${BASE_URL}${albumId}`;
-  const { data, isLoading } = useFetch<Album>({ url, enable: !album });
+  const { data } = useFetch<Album>({ url, enable: !album });
 
   useEffect(() => {
     if (data) {
@@ -28,7 +28,7 @@ export const Album = ({
       setAlbumData(album);
       return;
     }
-  }, [isLoading]);
+  }, [data, albumId]);
 
   return (
     <>
