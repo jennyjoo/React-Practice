@@ -82,7 +82,6 @@ export const SessionProvider = ({ children }: providerProps) => {
 
   useEffect(() => {
     const storedId = getStorage<Session>(SKEY, DefaultSession);
-    console.log({ storedId }, storedId.user);
 
     dispatch({
       type: ACTION.SET,

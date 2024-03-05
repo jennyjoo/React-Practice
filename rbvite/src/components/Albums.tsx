@@ -1,8 +1,8 @@
 import { useSession } from '../contexts/session.context';
 import { useFetch } from '../hooks/fetch';
 import { Album } from './Album';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState, useCallback } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useCallback } from 'react';
 import clsx from 'clsx';
 
 type Album = {
@@ -28,12 +28,10 @@ export const Albums = () => {
     enable: !(loginUser === null),
   });
 
-  //id
-  const { id } = useParams();
-
   //===== states =====
   //selected
-  const [selected, setSelected] = useState<number | null>(null);
+  const [query, setQuery] = useSearchParams({ albumId: '' });
+  const selectedAlbumId = query.get('albumId');
 
   //===== hooks =====
   const navigate = useNavigate();
@@ -51,20 +49,6 @@ export const Albums = () => {
     },
     [navigate]
   );
-
-  const selectAlbum = (id: number) => {
-    if (selected === id) {
-      setSelected(null);
-    } else {
-      setSelected(id);
-    }
-  };
-
-  useEffect(() => {
-    if (id != 'none') {
-      setSelected(Number(id));
-    }
-  }, []);
 
   return (
     <>
@@ -86,9 +70,9 @@ export const Albums = () => {
               >
                 <span className='mr-7'>{index + 1} </span>
                 <button
-                  onClick={() => selectAlbum(item.id)}
+                  onClick={() => setQuery({ albumId: String(item.id) })}
                   className={clsx({
-                    'font-extrabold': selected === item.id,
+                    'font-extrabold': Number(selectedAlbumId) === item.id,
                   })}
                 >
                   <Album albumId={item.id} album={item} />
@@ -98,7 +82,7 @@ export const Albums = () => {
           </ul>
         ) : null}
         <button
-          onClick={() => goTo(selected)}
+          onClick={() => goTo(Number(selectedAlbumId))}
           className='bg-hana rounded-2xl font-semibold text-zinc-50 p-2 mt-4 hover:border hover:border-hana hover:bg-transparent hover:text-hana w-1/4 '
         >
           Details
