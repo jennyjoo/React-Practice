@@ -62,7 +62,7 @@ const reducer = (session: Session, { type, payload }: Action) => {
       return session;
   }
 
-  setStorage(SKEY, newer);
+  setStorage<Session>(SKEY, newer);
   return newer;
 };
 
@@ -81,7 +81,10 @@ export const SessionProvider = ({ children }: providerProps) => {
   }, []);
 
   useEffect(() => {
-    dispatch({ type: ACTION.SET, payload: getStorage(SKEY, DefaultSession) });
+    dispatch({
+      type: ACTION.SET,
+      payload: getStorage<Session>(SKEY, DefaultSession),
+    });
   }, []);
 
   return (
