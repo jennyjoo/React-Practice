@@ -12,7 +12,6 @@ export const AlbumDetail = () => {
   const { albumId } = useParams();
 
   //albumData
-  // const { data: albumData, errorMsg } = useFetch<Album[] | null>({
   const { data: albumData } = useFetch<Album[] | null>({
     url: `${BASE_URL}/albums?id=${albumId}`,
     enable: !!albumId,
@@ -37,7 +36,6 @@ export const AlbumDetail = () => {
       {/* {errorMsg && isLoading ? (
         <UnknownError />
       ) : ( */}
-
       <div className='container max-w-2xl mx-auto'>
         {isLoading && <h1>is Loading...</h1>}
         {albumData ? (

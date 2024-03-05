@@ -76,14 +76,17 @@ export const SessionProvider = ({ children }: providerProps) => {
   }, []);
 
   const logout = useCallback(() => {
-    dispatch({ type: ACTION.LOG_OUT, payload: null });
+    dispatch({ type: ACTION.LOG_OUT, payload: DefaultSession });
     return true;
   }, []);
 
   useEffect(() => {
+    const storedId = getStorage<Session>(SKEY, DefaultSession);
+    console.log({ storedId }, storedId.user);
+
     dispatch({
       type: ACTION.SET,
-      payload: getStorage<Session>(SKEY, DefaultSession),
+      payload: storedId,
     });
   }, []);
 

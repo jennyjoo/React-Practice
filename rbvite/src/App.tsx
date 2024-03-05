@@ -24,7 +24,15 @@ function App() {
               </RequireAuth>
             }
           />
-          <Route path='/albums/detail/:albumId' element={<AlbumDetail />} />
+          {/* <Route path='/albums/detail/:albumId' element={<AlbumDetail />} /> */}
+          <Route
+            path='/albums/detail/:albumId'
+            element={
+              <RequireAuth>
+                <AlbumDetail />
+              </RequireAuth>
+            }
+          />
           <Route path='*' element={<NotFound />} />
         </Routes>
       </SessionProvider>
