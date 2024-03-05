@@ -64,18 +64,20 @@ export const Albums = () => {
               <li
                 key={item.id}
                 className={clsx({
-                  'p-3 hover:bg-slate-100': true,
+                  ' hover:bg-slate-100': true,
                   'border-b-2 border-zinc-100': item.id != albums?.length,
                 })}
               >
-                <span className='mr-7'>{index + 1} </span>
                 <button
                   onClick={() => setQuery({ albumId: String(item.id) })}
-                  className={clsx({
+                  className={clsx('w-full h-full flex p-4', 'text-start', {
                     'font-extrabold': Number(selectedAlbumId) === item.id,
                   })}
                 >
-                  <Album albumId={item.id} album={item} />
+                  <div className='mr-10'>{index + 1}</div>
+                  <div>
+                    <Album albumId={item.id} album={item} />
+                  </div>
                 </button>
               </li>
             ))}
