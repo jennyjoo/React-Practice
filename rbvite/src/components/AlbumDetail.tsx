@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useSession } from '../contexts/session.context';
 import { UnknownError } from './ui/UnknownError';
 // import { UnknownError } from './ui/UnknownError';
-import { Goto } from './ui/goto';
+import { Goto } from './ui/Goto';
 
 const BASE_URL = 'https://jsonplaceholder.typicode.com';
 

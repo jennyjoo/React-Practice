@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { useSession } from '../contexts/session.context';
 import { RenderSection } from './RenderSection';
 import './home.css';
-
 type List = {
   subTitle?: string;
   li: string[];
@@ -77,6 +76,7 @@ export const Home = () => {
   const { session } = useSession();
   const navigate = useNavigate();
   console.log('ssss>>>', session);
+
   return (
     <>
       <header id='home-header' className='p-10 h-full'>
