@@ -2,6 +2,91 @@ import { useNavigate } from 'react-router-dom';
 import { useSession } from '../contexts/session.context';
 import './home.css';
 
+type List = {
+  subTitle?: string;
+  li: string[];
+};
+type SectionType = {
+  title: string;
+  contents: List[];
+};
+
+const RequirementList: List[] = [
+  {
+    subTitle: 'jasonplaceholder API 사용한 로그인 사이트 구현',
+    li: [
+      'API는 jsonplaceholder의 어쩌구저쩌구 보세요',
+      '로그인된 사용자는 useReducer, useContext 이런거 쓰세용',
+      '왜 인덱스 번호가 안 뜨지? 저는 css가 싫어요!',
+      '왜 Gap 은 안 먹어? 일일히 다 해야함?',
+      ' Linux 멋있어보여요, 얕은지식? 제 전문이죠',
+      '대신 알기만 앎, 깊이 있는 이해는 남의 이야기, 나는 융합형 인재',
+      ' 동해물과 백두산이 마르고 닳도록 하느님이 보우하사',
+    ],
+  },
+];
+
+const AcquiredSkills: List[] = [
+  {
+    subTitle: '새로 배운 것',
+    li: ['useEffect', 'useCallback'],
+  },
+];
+
+const WillAcquireSkills: List[] = [
+  {
+    subTitle: 'Dependency',
+    li: ['useEffect', 'useCallback'],
+  },
+  {
+    subTitle: 'Cycle',
+    li: [
+      'Real-Dom VS Virtual-Dom',
+      'Parent Component VS Children Component',
+      'Hooks',
+    ],
+  },
+];
+
+const RequirementListSection: SectionType = {
+  title: '요구사항',
+  contents: RequirementList,
+};
+
+const AcquiredSkillsSection: SectionType = {
+  title: '새로 배운 것',
+  contents: AcquiredSkills,
+};
+
+const WillAcquirSkillsSection: SectionType = {
+  title: '아직 아리송',
+  contents: WillAcquireSkills,
+};
+
+const RenderSection = (section: SectionType) => {
+  const title = section.title;
+
+  return (
+    <>
+      <h1 className='sub-title'>| {title} |</h1>
+      <div className='text-start pl-20 pr-20 border-hana border-2 p-5 rounded-2xl mb-20'>
+        {section.contents?.map((content, index) => (
+          <div key={index}>
+            <h2 className='text-2xl font-bold mb-5 mt-5'>{content.subTitle}</h2>
+            <ul id='list'>
+              {content.li?.map((list, index) => (
+                <li key={index}>
+                  {index + 1}. {list}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};
+
 export const Home = () => {
   const { session } = useSession();
   const navigate = useNavigate();
@@ -27,26 +112,9 @@ export const Home = () => {
         </h1>
 
         <h2 className='p-5 mb-20 text-xl font-medium'>2024.02. ~ 2024.03.02</h2>
-        <h1 className='text-hana text-xl font-semibold mb-4'>
-          | 주제, 요구사항 |
-        </h1>
-        <h1 className='font-bold text-2xl mb-10 '>
-          jasonplaceholder API로 로그인 사이트 만들기
-        </h1>
-        <div className='text-start pl-20 pr-20 border-hana border-2 p-10 rounded-2xl'>
-          <h2 className='text-2xl font-bold mb-10'>요구사항</h2>
-          <ul className='flex flex-col gap-4 text-start '>
-            <li>1. API는 jsonplaceholder의 어쩌구저쩌구 랄랄라 보세요</li>
-            <li>2. 로그인된 사용자는 useReducer, useContext 이런거 쓰세용</li>
-            <li>3. 왜 인덱스 번호가 안 뜨지? 저는 css가 싫어요!</li>
-            <li>4. 왜 Gap 은 안 먹어? 일일히 다 해야함?</li>
-            <li>5. Linux 멋있어보여요, 얕은지식? 제 전문이죠</li>
-            <li>
-              6. 대신 알기만 앎, 깊이 있는 이해는 남의 이야기, 나는 융합형 인재
-            </li>
-            <li>7. 동해물과 백두산이 마르고 닳도록 하느님이 보우하사</li>
-          </ul>
-        </div>
+        {RenderSection(RequirementListSection)}
+        {RenderSection(AcquiredSkillsSection)}
+        {RenderSection(WillAcquirSkillsSection)}
       </body>
     </>
   );
