@@ -53,10 +53,14 @@ export const Albums = () => {
   return (
     <>
       <div className='container max-w-2xl mx-auto'>
-        <h1 className='font-semibold text-xl text-start pl-7 p-3 text-zinc-50 bg-hana rounded-t-2xl'>
+        <h1 className='font-semibold text-xl text-start pl-7 p-3 border-b-2 border-hana '>
           <strong>{loginUser ? `${loginUser?.name}'s  ` : `...`}</strong> Album
           List
         </h1>
+        {/* <h1 className='font-semibold text-xl text-start pl-7 p-3 text-zinc-50 bg-hana rounded-t-2xl'>
+          <strong>{loginUser ? `${loginUser?.name}'s  ` : `...`}</strong> Album
+          List
+        </h1> */}
         {loginUser && isLoading ? <h1>isLoading...</h1> : null}
         {albums ? (
           <ul className='text-start border-b-2 border-b-hana'>
@@ -85,7 +89,7 @@ export const Albums = () => {
         ) : null}
         <button
           onClick={() => goTo(Number(selectedAlbumId))}
-          className='bg-hana rounded-2xl font-semibold text-zinc-50 p-2 mt-4 hover:border hover:border-hana hover:bg-transparent hover:text-hana w-1/4 '
+          className='bg-hana rounded-full font-semibold text-zinc-50 p-2 mt-4 hover:border hover:border-hana hover:bg-transparent hover:text-hana w-1/4 '
         >
           Details
         </button>

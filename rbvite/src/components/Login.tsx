@@ -75,7 +75,7 @@ export const Login = () => {
 
         <button
           type='submit'
-          className='bg-hana text-zinc-50 mt-3 font-bold rounded pl-2 pr-2 p-1'
+          className='bg-hana text-zinc-50 mt-3 font-bold rounded-full pl-2 pr-2 p-1'
         >
           Log-in
         </button>
