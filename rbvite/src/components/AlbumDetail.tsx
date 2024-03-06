@@ -15,6 +15,7 @@ export const AlbumDetail = () => {
     session: { user: loginUser },
   } = useSession();
   const [authorized, setAuth] = useState(true);
+
   //albumId
   const { albumId } = useParams();
 
@@ -39,10 +40,9 @@ export const AlbumDetail = () => {
   };
 
   useEffect(() => {
-    if (
-      albumData &&
-      !albumData?.find((item) => item.userId === loginUser?.id)
-    ) {
+    const hasItem = albumData?.find((item) => item.userId === loginUser?.id);
+
+    if (albumData && !hasItem) {
       setAuth(false);
     }
   }, [albumData]);
@@ -57,7 +57,10 @@ export const AlbumDetail = () => {
           {isLoading && <h1>is Loading...</h1>}
 
           <h1 className='text-start pl-3 text-hana'>
-            <Goto url='/albums' className='hover:underline text-slate-400'>
+            <Goto
+              url={`/albums?albumId=${Number(albumId)}`}
+              className='hover:underline text-slate-400'
+            >
               My Album
             </Goto>{' '}
             &gt; Detail
