@@ -26,10 +26,15 @@ const RequirementList: List[] = [
   },
 ];
 
+const acquired: string =
+  'DOM Timing : useEffect는 tree가 다 그려진 이후에 실행되는 것임. 따라서 먼저 tree가 다 그려진 component의 useEffect가 실행되므로, 반드시 부모 component의 useEffect가 먼저 실행된다 할 수 없고, 그 반대도 마찬가지';
+
+const acquired2: string =
+  'State와 DOM : re-render는 state가 바뀔 때 일어나므로, useRef의 값이 아무리 바뀌어도, state가 바뀐 것이 아니기 때문에 real-dom에 적용되지 않음';
 const AcquiredSkills: List[] = [
   {
     subTitle: '새로 배운 것',
-    li: ['useEffect', 'useCallback'],
+    li: ['useEffect ', 'useCallback', acquired, acquired2],
   },
 ];
 
@@ -45,6 +50,10 @@ const WillAcquireSkills: List[] = [
       'Parent Component VS Children Component',
       'Hooks',
     ],
+  },
+  {
+    subTitle: 'Routing 셋팅 시점이랑 Routing 도는 시점',
+    li: ['painting 시점이...'],
   },
 ];
 
@@ -93,7 +102,7 @@ export const Home = () => {
   console.log('ssss>>>', session);
   return (
     <>
-      <header id='home-header' className='p-10'>
+      <header id='home-header' className='p-10 h-full'>
         <h1 className='font-bold text-5xl pb-20 text-zinc-50'>
           DigitalHana路 개발 3기 2차 과제
         </h1>

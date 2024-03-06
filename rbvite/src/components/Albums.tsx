@@ -68,14 +68,15 @@ export const Albums = () => {
               <li
                 key={item.id}
                 className={clsx({
-                  ' hover:bg-slate-100': true,
+                  ' hover:bg-slate-50': true,
                   'border-b-2 border-zinc-100': item.id != albums?.length,
                 })}
               >
                 <button
                   onClick={() => setQuery({ albumId: String(item.id) })}
                   className={clsx('w-full h-full flex p-4', 'text-start', {
-                    'font-extrabold': Number(selectedAlbumId) === item.id,
+                    'font-extrabold bg-slate-200':
+                      Number(selectedAlbumId) === item.id,
                   })}
                 >
                   <div className='mr-10'>{index + 1}</div>
