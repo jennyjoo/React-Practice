@@ -1,5 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFetch } from '../hooks/fetch';
+import { useEffect, useState } from 'react';
+import { useSession } from '../contexts/session.context';
+import { UnknownError } from './ui/UnknownError';
 // import { UnknownError } from './ui/UnknownError';
 
 const BASE_URL = 'https://jsonplaceholder.typicode.com';
@@ -7,6 +10,10 @@ const BASE_URL = 'https://jsonplaceholder.typicode.com';
 export const AlbumDetail = () => {
   //===== data =====
 
+  const {
+    session: { user: loginUser },
+  } = useSession();
+  const [authorized, setAuth] = useState(true);
   //albumId
   const { albumId } = useParams();
 
@@ -30,35 +37,49 @@ export const AlbumDetail = () => {
     navigate(`/albums?albumId=${albumId}`);
   };
 
+  useEffect(() => {
+    if (
+      albumData &&
+      !albumData?.find((item) => item.userId === loginUser?.id)
+    ) {
+      setAuth(false);
+    }
+  }, [albumData]);
+
   return (
     <>
       {/* {errorMsg && isLoading ? (
         <UnknownError />
       ) : ( */}
-      <div className='container max-w-2xl mx-auto'>
-        {isLoading && <h1>is Loading...</h1>}
-        <h1 className='text-start pl-3 text-hana'>Album &gt; Detail</h1>
-        {albumData ? (
-          <h1 className='flex justify-between items-center font-semibold text-xl text-start  p-3 border-b-2 border-hana '>
-            {albumData[0].id} {albumData[0].title}
-            <button
-              onClick={() => goBackHandler()}
-              className='bg-hana rounded-full text-base font-semibold text-zinc-50 p-1 hover:border hover:border-hana hover:bg-transparent hover:text-hana w-1/5 '
-            >
-              Go Back
-            </button>
-          </h1>
-        ) : (
-          `is Loading`
-        )}
-        <ul className='flex flex-wrap mt-10'>
-          {photos?.map((item) => (
-            <li className='w-1/4' key={item.id}>
-              <img className='p-2' src={item.thumbnailUrl} alt='' />
-            </li>
-          ))}
-        </ul>
-      </div>
+      {authorized ? (
+        <div className='container max-w-2xl mx-auto'>
+          {isLoading && <h1>is Loading...</h1>}
+          <h1 className='text-start pl-3 text-hana'>Album &gt; Detail</h1>
+          {albumData ? (
+            <h1 className='flex justify-between items-center font-semibold text-xl text-start  p-3 border-b-2 border-hana '>
+              {albumData[0].id} {albumData[0].title}
+              <button
+                onClick={() => goBackHandler()}
+                className='bg-hana rounded-full text-base font-semibold text-zinc-50 p-1 hover:border hover:border-hana hover:bg-transparent hover:text-hana w-1/5 '
+              >
+                Go Back
+              </button>
+            </h1>
+          ) : (
+            `is Loading`
+          )}
+          <ul className='flex flex-wrap mt-10'>
+            {photos?.map((item) => (
+              <li className='w-1/4' key={item.id}>
+                <img className='p-2' src={item.thumbnailUrl} alt='' />
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <UnknownError />
+      )}
+
       {/* )} */}
     </>
   );
