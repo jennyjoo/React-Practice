@@ -50,17 +50,21 @@ export const Albums = () => {
     [navigate]
   );
 
+  const selectHandler = (id: number) => {
+    if (Number(selectedAlbumId) === id) {
+      setQuery({});
+    } else {
+      setQuery({ albumId: String(id) });
+    }
+  };
+
   return (
     <>
       <div className='container max-w-2xl mx-auto'>
         <h1 className='font-semibold text-xl text-start pl-7 p-3 border-b-2 border-hana '>
-          <strong>{loginUser ? `${loginUser?.name}'s  ` : `...`}</strong> Album
+          <strong>{loginUser ? `${loginUser?.name}'s  ` : `...`}</strong>Album
           List
         </h1>
-        {/* <h1 className='font-semibold text-xl text-start pl-7 p-3 text-zinc-50 bg-hana rounded-t-2xl'>
-          <strong>{loginUser ? `${loginUser?.name}'s  ` : `...`}</strong> Album
-          List
-        </h1> */}
         {loginUser && isLoading ? <h1>isLoading...</h1> : null}
         {albums ? (
           <ul className='text-start border-b-2 border-b-hana'>
@@ -73,7 +77,7 @@ export const Albums = () => {
                 })}
               >
                 <button
-                  onClick={() => setQuery({ albumId: String(item.id) })}
+                  onClick={() => selectHandler(item.id)}
                   className={clsx('w-full h-full flex p-4', 'text-start', {
                     'font-extrabold bg-slate-200':
                       Number(selectedAlbumId) === item.id,

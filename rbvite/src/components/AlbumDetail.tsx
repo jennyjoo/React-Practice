@@ -54,7 +54,7 @@ export const AlbumDetail = () => {
       {authorized ? (
         <div className='container max-w-2xl mx-auto'>
           {isLoading && <h1>is Loading...</h1>}
-          <h1 className='text-start pl-3 text-hana'>Album &gt; Detail</h1>
+          <h1 className='text-start pl-3 text-hana'>My Album &gt; Detail</h1>
           {albumData ? (
             <h1 className='flex justify-between items-center font-semibold text-xl text-start  p-3 border-b-2 border-hana '>
               {albumData[0].id} {albumData[0].title}

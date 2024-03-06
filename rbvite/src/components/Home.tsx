@@ -111,7 +111,7 @@ export const Home = () => {
             onClick={() => navigate('/albums')}
             className=' border-zinc-50 border-2 hover:bg-zinc-50 hover:text-hana text-zinc-50 font-black p-3 pl-5 pr-5 rounded-full'
           >
-            ALBUMS
+            My Album
           </button>
         )}
       </header>
