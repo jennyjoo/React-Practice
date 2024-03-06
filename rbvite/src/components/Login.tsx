@@ -50,7 +50,7 @@ export const Login = () => {
         alert('No such user');
       }
 
-      if (login(id, name)) navigate('/list');
+      if (login(id, name)) navigate('/');
       else alert('Login Failed');
     } catch (err) {
       console.error(err);

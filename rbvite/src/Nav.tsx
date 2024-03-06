@@ -1,19 +1,14 @@
 import { NavLink } from 'react-router-dom';
 import { useSession } from './contexts/session.context';
-import { useNavigate } from 'react-router-dom';
+import { Logout } from './components/Logout';
+import { LoginNav } from './components/LoginNav';
 
 export const Nav = () => {
-  const { session, logout } = useSession();
-  const navigate = useNavigate();
+  const { session } = useSession();
 
-  const logoutHandler = () => {
-    if (logout()) {
-      navigate('/');
-    }
-  };
   return (
     <>
-      <nav className='flex justify-between mb-5 text-hana border-b-2 pb-5 border-b-zinc-200'>
+      <nav className='flex justify-between mb-5 text-hana  pb-2'>
         <NavLink to='/' replace className='text-hana font-extrabold'>
           DigitalHana路
         </NavLink>
@@ -23,9 +18,7 @@ export const Nav = () => {
             {session.user?.id} {session.user?.name}
           </span>
           <span className='basis-1/3'>
-            <button onClick={logoutHandler} className='text-hana'>
-              {session.user && `logout`}
-            </button>
+            {session.user?.id ? <Logout /> : <LoginNav />}
           </span>
         </span>
       </nav>
