@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useSession } from '../contexts/session.context';
+import { RenderSection } from './RenderSection';
 import './home.css';
 
 type List = {
@@ -72,30 +73,6 @@ const WillAcquirSkillsSection: SectionType = {
   contents: WillAcquireSkills,
 };
 
-const RenderSection = (section: SectionType) => {
-  const title = section.title;
-
-  return (
-    <>
-      <h1 className='sub-title'>| {title} |</h1>
-      <div className='text-start pl-20 pr-20 border-hana border-2 p-5 rounded-2xl mb-20'>
-        {section.contents?.map((content, index) => (
-          <div key={index}>
-            <h2 className='text-2xl font-bold mb-5 mt-5'>{content.subTitle}</h2>
-            <ul id='list'>
-              {content.li?.map((list, index) => (
-                <li key={index}>
-                  {index + 1}. {list}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </>
-  );
-};
-
 export const Home = () => {
   const { session } = useSession();
   const navigate = useNavigate();
@@ -115,7 +92,7 @@ export const Home = () => {
           </button>
         )}
       </header>
-      <body className='p-5 mt-10 border-t-2 border-hana'>
+      <div className='p-5 mt-10 border-t-2 border-hana'>
         <h1 className='font-extrabold text-4xl mt-10'>
           금융개발 3기 프론트엔드 과제 2
         </h1>
@@ -124,7 +101,7 @@ export const Home = () => {
         {RenderSection(RequirementListSection)}
         {RenderSection(AcquiredSkillsSection)}
         {RenderSection(WillAcquirSkillsSection)}
-      </body>
+      </div>
     </>
   );
 };

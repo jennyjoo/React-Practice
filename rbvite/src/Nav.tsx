@@ -13,8 +13,13 @@ export const Nav = () => {
           DigitalHana路
         </NavLink>
 
+        {session.user && session.user?.id && (
+          <NavLink to='/albums' className='hover:underline'>
+            My Album
+          </NavLink>
+        )}
         <span className='flex flex-row min-w-72'>
-          <span className='basis-2/3 underline'>
+          <span className='basis-2/3 underline text-black'>
             {session.user?.id} {session.user?.name}
           </span>
           <span className='basis-1/3'>
