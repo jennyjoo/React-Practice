@@ -27,7 +27,7 @@ export const AlbumDetail = () => {
 
   //===== handlers =====
   const goBackHandler = () => {
-    navigate(`/albums/?albumId=${albumId}`);
+    navigate(`/albums?albumId=${albumId}`);
   };
 
   return (
@@ -37,12 +37,10 @@ export const AlbumDetail = () => {
       ) : ( */}
       <div className='container max-w-2xl mx-auto'>
         {isLoading && <h1>is Loading...</h1>}
+        <h1 className='text-start pl-3 text-hana'>Album &gt; Detail</h1>
         {albumData ? (
           <h1 className='flex justify-between items-center font-semibold text-xl text-start  p-3 border-b-2 border-hana '>
-            <span>
-              <span className='text-hana mr-2'>Albums &gt;</span>{' '}
-              {albumData[0].id} {albumData[0].title}
-            </span>
+            {albumData[0].id} {albumData[0].title}
             <button
               onClick={() => goBackHandler()}
               className='bg-hana rounded-full text-base font-semibold text-zinc-50 p-1 hover:border hover:border-hana hover:bg-transparent hover:text-hana w-1/5 '
