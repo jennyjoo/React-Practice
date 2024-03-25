@@ -15,7 +15,7 @@ const RequirementList: List[] = [
   {
     subTitle: 'jasonplaceholder API 사용한 로그인 사이트 구현',
     li: [
-      'API는 jsonplaceholder의 어쩌구저쩌구 보세요',
+      'API는 jsonplaceholder 사용',
       '로그인된 사용자는 useReducer, useContext 사용',
       '앨범 목록은 현재 로그인된 User의 앨범들이며, 이 앨범들을 대상으로 앨범 선태 후 앨범 상세보기 클릭시 선택된 앨범의 상세(사진보기)화면으로 이동. (앨범은 하나만 선액)',
       '페이지 전환은 react-router-dom 사용',
